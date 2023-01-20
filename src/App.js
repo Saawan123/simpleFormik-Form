@@ -2,6 +2,7 @@ import './App.css';
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 function App() {
+
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -20,22 +21,31 @@ function App() {
       email: Yup.string()
         .email("Please provide a valid email")
         .required("this is required field"),
-        status:Yup.string()
+      status: Yup.string()
         .required("this is required field"),
-        country:Yup.string()
+      country: Yup.string()
         .required("this is required field"),
     }),
     onSubmit: (values) => {
-      console.log("form submitted", values)
-    }
+      console.log("form submitted", values);   
+   document.write(`<h1>
+   NAME:${values.name}<br/>
+   Country:${values.country}<br/>
+   Email:${values.email}<br/>
+   Country:${values.country}<br/>
+   Status:${values.status}<br/>
+   </h1>`)
+   
+      }
   })
   console.log(formik.touched)
 
 
   return (
+    
     <div className="App">
       <form onSubmit={formik.handleSubmit}>
-      <label>Username</label>
+        <label>Username</label>
         <input
           type="text"
           name="username"
@@ -44,8 +54,9 @@ function App() {
           value={formik.values.username}
           onBlur={formik.handleBlur}
         />
+       
         {formik.touched.username && formik.errors.username && <p style={{ color: "red" }}>{formik.errors.username}</p>}
-        <br/>
+        <br />
         <label>Name</label>
         <input
           type="text"
@@ -55,9 +66,10 @@ function App() {
           value={formik.values.name}
           onBlur={formik.handleBlur}
         />
-        <br/>
-{formik.touched.name && formik.errors.name && <p style={{ color: "red" }}>{formik.errors.name}</p>}
-<label>Email</label>
+        
+        <br />
+        {formik.touched.name && formik.errors.name && <p style={{ color: "red" }}>{formik.errors.name}</p>}
+        <label>Email</label>
         <input
           type="email"
           name="email"
@@ -67,7 +79,7 @@ function App() {
           onBlur={formik.handleBlur}
         />
         {formik.touched.email && formik.errors.email && <p style={{ color: "red" }}>{formik.errors.email}</p>}
-         <br />
+        <br />
         <span>Your status</span>
         <input
           type="radio"
@@ -101,7 +113,9 @@ function App() {
         {formik.touched.country && formik.errors.country && <p style={{ color: "red" }}>{formik.errors.country}</p>}
         <button type="submit"> Submit </button>
       </form>
+
     </div>
+ 
   );
 }
 
